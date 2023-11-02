@@ -8,8 +8,8 @@ services:
     volumes:
       - .:/srv
 
-  apache:
-    image: httpd:2.4.52
+  nginx:
+    image: drakona/nginx:8-symfony
     depends_on:
       - app
     volumes:

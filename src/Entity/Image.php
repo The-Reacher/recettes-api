@@ -8,9 +8,11 @@ use App\Entity\Traits\HasPriorityTrait;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @ApiResource
  */
 class Image {
 
