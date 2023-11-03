@@ -10,10 +10,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=TagRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class Tag {
 
@@ -23,21 +25,31 @@ class Tag {
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $menu;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tag::class, inversedBy="children")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Groups("get")
      */
     private $parent;
 
     /**
      * @ORM\OneToMany(targetEntity=Tag::class, mappedBy="parent")
+     * @Groups("get")
      */
     private $children;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Recipe::class, inversedBy="tags")
+     */
+    private $recipes;
+
     public function __construct() {
         $this->children = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function isMenu(): ?bool {
@@ -83,6 +95,30 @@ class Tag {
                 $child->setParent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Recipe>
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        $this->recipes->removeElement($recipe);
 
         return $this;
     }

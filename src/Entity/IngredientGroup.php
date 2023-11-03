@@ -13,7 +13,8 @@ use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=IngredientGroupRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class IngredientGroup
 {

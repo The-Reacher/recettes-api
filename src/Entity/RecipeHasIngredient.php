@@ -6,10 +6,12 @@ use App\Entity\Traits\HasIdTrait;
 use App\Repository\RecipeHasIngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeHasIngredientRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class RecipeHasIngredient
 {
@@ -18,11 +20,13 @@ class RecipeHasIngredient
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("get")
      */
     private $quantity;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $optional;
 
@@ -35,17 +39,20 @@ class RecipeHasIngredient
     /**
      * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="recipeHasIngredients")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("get")
      */
     private $ingredient;
 
     /**
      * @ORM\ManyToOne(targetEntity=IngredientGroup::class, inversedBy="recipeHasIngredients")
+     * @Groups("get")
      */
     private $ingredientGroup;
 
     /**
      * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="recipeHasIngredients")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Groups("get")
      */
     private $unit;
 

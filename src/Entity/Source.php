@@ -11,29 +11,33 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Traits\HasTimestampTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=SourceRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class Source {
     use HasIdTrait;
     use HasNameTrait;
     use HasDescriptionTrait;
-    use TimestampableEntity;
+    use HasTimestampTrait;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("get")
      */
     private $url;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Recipe::class, inversedBy="sources")
+     * @ORM\OneToMany(targetEntity=RecipeHasSource::class, mappedBy="source")
      */
-    private $recipes;
+    private $recipeHasSources;
 
     public function __construct() {
-        $this->recipes = new ArrayCollection();
+        $this->recipeHasSources = new ArrayCollection();
     }
 
     public function getUrl(): ?string {
@@ -47,22 +51,31 @@ class Source {
     }
 
     /**
-     * @return Collection<int, Recipe>
+     * @return Collection<int, RecipeHasSource>
      */
-    public function getRecipes(): Collection {
-        return $this->recipes;
+    public function getRecipeHasSources(): Collection
+    {
+        return $this->recipeHasSources;
     }
 
-    public function addRecipe(Recipe $recipe): self {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes[] = $recipe;
+    public function addRecipeHasSource(RecipeHasSource $recipeHasSource): self
+    {
+        if (!$this->recipeHasSources->contains($recipeHasSource)) {
+            $this->recipeHasSources[] = $recipeHasSource;
+            $recipeHasSource->setSource($this);
         }
 
         return $this;
     }
 
-    public function removeRecipe(Recipe $recipe): self {
-        $this->recipes->removeElement($recipe);
+    public function removeRecipeHasSource(RecipeHasSource $recipeHasSource): self
+    {
+        if ($this->recipeHasSources->removeElement($recipeHasSource)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeHasSource->getSource() === $this) {
+                $recipeHasSource->setSource(null);
+            }
+        }
 
         return $this;
     }
