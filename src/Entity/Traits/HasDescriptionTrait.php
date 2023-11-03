@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Entity\Traits;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
 
 
 trait HasDescriptionTrait {
 
   /**
    * @ORM\Column(type="text", nullable=true)
+   * @Groups("get","Recipe:item:get")
    */
   private $description;
 

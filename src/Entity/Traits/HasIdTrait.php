@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity\Traits;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
 
 
 trait HasIdTrait {
@@ -8,6 +10,7 @@ trait HasIdTrait {
    * @ORM\Id
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
+   * @Groups("get","Recipe:item:get")
    */
   private $id;
 

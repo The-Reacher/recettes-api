@@ -8,24 +8,31 @@ use App\Entity\Traits\HasPriorityTrait;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Traits\HasTimestampTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
+ * @ApiResource(
+ *      itemOperations={"get", "delete"})
  */
 class Image {
 
     use HasIdTrait;
     use HasDescriptionTrait;
     use HasPriorityTrait;
-    use TimestampableEntity;
+    use HasTimestampTrait;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("get")
      */
     private $path;
 
     /**
      * @ORM\Column(type="float")
+     * @Groups("get")
      */
     private $size;
 

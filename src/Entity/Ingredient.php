@@ -10,34 +10,43 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Traits\HasTimestampTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=IngredientRepository::class)
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class Ingredient
 {
     use HasIdTrait;
     use HasNameTrait;
     use HasDescriptionTrait;
-    use TimestampableEntity;
+    use HasTimestampTrait;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $vegan;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $vegetarian;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $dairyFree;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups("get")
      */
     private $glutenFree;
 

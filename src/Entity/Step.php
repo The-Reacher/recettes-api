@@ -9,18 +9,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Core\Annotation\ApiResource;
+use App\Entity\Traits\HasTimestampTrait;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=StepRepository::class)
+ * @ApiResource(
+ *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class Step {
 
     use HasIdTrait;
     use HasPriorityTrait;
-    use TimestampableEntity;
+    use HasTimestampTrait;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("get")
      */
     private $content;
 
@@ -31,7 +37,8 @@ class Step {
     private $recipe;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="step")
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="step", cascade={"persist", "remove"})
+     * @Groups("get")
      */
     private $images;
 
