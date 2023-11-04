@@ -11,6 +11,8 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasTimestampTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ImageRepository::class)
@@ -25,13 +27,21 @@ class Image {
     use HasTimestampTrait;
 
     /**
+     * 
+     * @Vich\UploadableField(mapping="images", fileNameProperty="path", size="size")
+     * 
+     * @var File|null
+     */
+    private $file;
+
+    /**
      * @ORM\Column(type="string", length=255)
      * @Groups("get")
      */
     private $path;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="integer")
      * @Groups("get")
      */
     private $size;
@@ -46,6 +56,20 @@ class Image {
      * @ORM\ManyToOne(targetEntity=Step::class, inversedBy="images")
      */
     private $step;
+
+    /**
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
+     */
+    public function setFile(?File $file = null): void {
+        $this->file = $file;
+        if (null !== $file) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getFile(): ?File {
+        return $this->file;
+    }
 
     public function getPath(): ?string {
         return $this->path;
@@ -67,25 +91,21 @@ class Image {
         return $this;
     }
 
-    public function getRecipe(): ?Recipe
-    {
+    public function getRecipe(): ?Recipe {
         return $this->recipe;
     }
 
-    public function setRecipe(?Recipe $recipe): self
-    {
+    public function setRecipe(?Recipe $recipe): self {
         $this->recipe = $recipe;
 
         return $this;
     }
 
-    public function getStep(): ?Step
-    {
+    public function getStep(): ?Step {
         return $this->step;
     }
 
-    public function setStep(?Step $step): self
-    {
+    public function setStep(?Step $step): self {
         $this->step = $step;
 
         return $this;
