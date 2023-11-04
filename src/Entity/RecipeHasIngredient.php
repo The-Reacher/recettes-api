@@ -2,59 +2,67 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\RecipeHasIngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeHasIngredientRepository::class)
+ *
  * @ApiResource(
  *      itemOperations={"get" ,"patch" ,"delete"})
  */
 class RecipeHasIngredient
 {
-
     use HasIdTrait;
 
     /**
      * @ORM\Column(type="float")
+     *
      * @Groups("get")
      */
-    private $quantity;
+    private float $quantity;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups("get")
      */
-    private $optional;
+    private bool $optional;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="recipeHasIngredients")
+     *
      * @ORM\JoinColumn(nullable=false)
      */
-    private $recipe;
+    private ?Recipe $recipe;
 
     /**
      * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="recipeHasIngredients")
+     *
      * @ORM\JoinColumn(nullable=false)
+     *
      * @Groups("get")
      */
-    private $ingredient;
+    private ?Ingredient $ingredient;
 
     /**
      * @ORM\ManyToOne(targetEntity=IngredientGroup::class, inversedBy="recipeHasIngredients")
+     *
      * @Groups("get")
      */
-    private $ingredientGroup;
+    private ?IngredientGroup $ingredientGroup;
 
     /**
      * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="recipeHasIngredients")
+     *
      * @ORM\JoinColumn(onDelete="SET NULL")
+     *
      * @Groups("get")
      */
-    private $unit;
+    private ?Unit $unit;
 
     public function getQuantity(): ?float
     {

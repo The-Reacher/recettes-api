@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasNameTrait;
 use App\Entity\Traits\HasPriorityTrait;
@@ -9,10 +10,10 @@ use App\Repository\IngredientGroupRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=IngredientGroupRepository::class)
+ *
  * @ApiResource(
  *      itemOperations={"get" ,"patch" ,"delete"})
  */
@@ -23,9 +24,11 @@ class IngredientGroup
     use HasPriorityTrait;
 
     /**
+     * @var Collection<int, RecipeHasIngredient>
+     *
      * @ORM\OneToMany(targetEntity=RecipeHasIngredient::class, mappedBy="ingredientGroup")
      */
-    private $recipeHasIngredients;
+    private Collection $recipeHasIngredients;
 
     public function __construct()
     {
@@ -61,6 +64,4 @@ class IngredientGroup
 
         return $this;
     }
-
-    
 }

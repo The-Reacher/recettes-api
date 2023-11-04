@@ -1,43 +1,48 @@
 <?php
 
 namespace App\Entity\Traits;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Serializer\Annotation\Groups;
 
+trait HasNameTrait
+{
+    /**
+     * @ORM\Column(type="string", length=128)
+     */
+    private string $name;
 
-trait HasNameTrait {
+    /**
+     * @gedmo\Slug(fields={"name"}, unique=true)
+     *
+     * @ORM\Column(type="string", length=128, unique=true)
+     *
+     * @Groups("get","Recipe:item:get")
+     */
+    private string $slug;
 
-  /**
-   * @ORM\Column(type="string", length=128)
-   */
-  private $name;
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-  /**
-   * @gedmo\Slug(fields={"name"}, unique=true)
-   * @ORM\Column(type="string", length=128, unique=true)
-   * @Groups("get","Recipe:item:get")
-   */
-  private $slug;
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
-  public function getName(): ?string {
-    return $this->name;
-  }
+        return $this;
+    }
 
-  public function setName(string $name): self {
-    $this->name = $name;
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
-    return $this;
-  }
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
-  public function getSlug(): ?string {
-    return $this->slug;
-  }
-
-  public function setSlug(string $slug): self {
-    $this->slug = $slug;
-
-    return $this;
-  }
+        return $this;
+    }
 }

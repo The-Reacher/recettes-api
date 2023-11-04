@@ -2,20 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasDescriptionTrait;
 use App\Entity\Traits\HasIdTrait;
 use App\Entity\Traits\HasNameTrait;
+use App\Entity\Traits\HasTimestampTrait;
 use App\Repository\IngredientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use ApiPlatform\Core\Annotation\ApiResource;
-use App\Entity\Traits\HasTimestampTrait;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=IngredientRepository::class)
+ *
  * @ApiResource(
  *      itemOperations={"get" ,"patch" ,"delete"})
  */
@@ -28,32 +28,38 @@ class Ingredient
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups("get")
      */
-    private $vegan;
+    private bool $vegan;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups("get")
      */
-    private $vegetarian;
+    private bool $vegetarian;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups("get")
      */
-    private $dairyFree;
+    private bool $dairyFree;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      * @Groups("get")
      */
-    private $glutenFree;
+    private bool $glutenFree;
 
     /**
+     * @var Collection<int, RecipeHasIngredient>
+     *
      * @ORM\OneToMany(targetEntity=RecipeHasIngredient::class, mappedBy="ingredient", orphanRemoval=true)
      */
-    private $recipeHasIngredients;
+    private Collection $recipeHasIngredients;
 
     public function __construct()
     {

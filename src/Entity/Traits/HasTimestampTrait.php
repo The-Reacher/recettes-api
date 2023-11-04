@@ -2,44 +2,52 @@
 
 namespace App\Entity\Traits;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+trait HasTimestampTrait
+{
+    /**
+     * @gedmo\Timestampable(on="create")
+     *
+     * @ORM\Column(type="datetime_immutable")
+     *
+     * @Groups("get","Recipe:item:get")
+     */
+    protected ?\DateTime $createdAt;
 
-trait HasTimestampTrait {
+    /**
+     * @gedmo\Timestampable(on="create")
+     *
+     * @ORM\Column(type="datetime_immutable")
+     *
+     * @Groups("Recipe:item:get")
+     */
+    protected ?\DateTime $updatedAt;
 
-  /**
-   * @gedmo\Timestampable(on="create")
-   * @ORM\Column(type="datetime_immutable")
-   * @Groups("get","Recipe:item:get")
-   */
-  private $createdAt;
+    public function getCreatedAt(): ?\DateTime
+    {
+        return $this->createdAt;
+    }
 
-  /**
-   * @gedmo\Timestampable(on="create")
-   * @ORM\Column(type="datetime_immutable")
-   * @Groups("Recipe:item:get")
-   */
-  private $updatedAt;
+    public function setCreatedAt(\DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
-  public function getCreatedAt(): ?\DateTimeImmutable {
-    return $this->createdAt;
-  }
+        return $this;
+    }
 
-  public function setCreatedAt(\DateTimeImmutable $createdAt): self {
-    $this->createdAt = $createdAt;
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
 
-    return $this;
-  }
+    public function setUpdatedAt(\DateTime $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
 
-  public function getUpdatedAt(): ?\DateTimeImmutable {
-    return $this->updatedAt;
-  }
-
-  public function setUpdatedAt(\DateTimeImmutable $updatedAt): self {
-    $this->updatedAt = $updatedAt;
-
-    return $this;
-  }
+        return $this;
+    }
 }

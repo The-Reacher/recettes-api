@@ -12,26 +12,28 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 class RecipeHasSource
 {
-
     use HasIdTrait;
 
     /**
      * @ORM\Column(type="text")
+     *
      * @Groups("get")
      */
-    private $url;
+    private string $url;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="recipeHasSources")
-     * @Groups("get") 
+     *
+     * @Groups("get")
      */
-    private $recipe;
+    private ?Recipe $recipe;
 
     /**
      * @ORM\ManyToOne(targetEntity=Source::class, inversedBy="recipeHasSources")
-     * @Groups("get") 
+     *
+     * @Groups("get")
      */
-    private $source;
+    private ?Source $source;
 
     public function getUrl(): ?string
     {

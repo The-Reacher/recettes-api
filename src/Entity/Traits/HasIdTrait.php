@@ -1,21 +1,24 @@
 <?php
 
 namespace App\Entity\Traits;
-use Symfony\Component\Serializer\Annotation\Groups;
+
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
+trait HasIdTrait
+{
+    /**
+     * @ORM\Id
+     *
+     * @ORM\GeneratedValue
+     *
+     * @ORM\Column(type="integer")
+     *
+     * @Groups("get","Recipe:item:get")
+     */
+    private int $id;
 
-trait HasIdTrait {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   * @Groups("get","Recipe:item:get")
-   */
-  private $id;
-
-
-  public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
