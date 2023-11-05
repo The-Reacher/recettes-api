@@ -3,21 +3,11 @@
 namespace App\DataFixtures;
 
 use App\Entity\Tag;
-use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
 
-class TagFixtures extends Fixture
-{
-    protected Faker\Generator $faker;
+class TagFixtures extends AbstractFixtures {
 
-    public function __construct()
-    {
-        $this->faker = Faker\Factory::create('fr_FR');
-    }
-
-    public function load(ObjectManager $manager): void
-    {
+    public function load(ObjectManager $manager): void {
         $tags = [];
         for ($i = 0; $i < 200; ++$i) {
             $tag = new Tag();

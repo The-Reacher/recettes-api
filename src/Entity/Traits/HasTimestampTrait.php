@@ -12,7 +12,7 @@ trait HasTimestampTrait
     /**
      * @gedmo\Timestampable(on="create")
      *
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      *
      * @Groups("get","Recipe:item:get")
      */
@@ -21,7 +21,7 @@ trait HasTimestampTrait
     /**
      * @gedmo\Timestampable(on="create")
      *
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      *
      * @Groups("Recipe:item:get")
      */
