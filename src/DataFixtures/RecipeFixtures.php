@@ -6,10 +6,10 @@ use App\Entity\Recipe;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class RecipeFixtures extends AbstractFixtures implements DependentFixtureInterface {
-
-    public function load(ObjectManager $manager): void {
-
+class RecipeFixtures extends AbstractFixtures implements DependentFixtureInterface
+{
+    public function load(ObjectManager $manager): void
+    {
         for ($i = 0; $i < 50; ++$i) {
             $recipe = new Recipe();
             $recipe->setName($this->faker->name())
@@ -23,10 +23,12 @@ class RecipeFixtures extends AbstractFixtures implements DependentFixtureInterfa
         }
         $manager->flush();
     }
-    public function getDependencies() {
+
+    public function getDependencies()
+    {
         return [
-            //syntaxe FQCN ("Fully Qualified Class Name")
-            TagFixtures::class
+            // syntaxe FQCN ("Fully Qualified Class Name")
+            TagFixtures::class,
         ];
     }
 }
