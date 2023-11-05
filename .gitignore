@@ -5,7 +5,7 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/var/
+/var/*
 /vendor/
 ###< symfony/framework-bundle ###
 
@@ -19,5 +19,5 @@ phpstan.neon
 ###< phpstan/phpstan ###
 
 #Images
-public/images/*
 !public/images/.gitignore
+!/var/images

@@ -50,8 +50,6 @@ class Image
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="images")
-     *
-     * @ORM\JoinColumn(nullable=false)
      */
     private ?Recipe $recipe;
 
