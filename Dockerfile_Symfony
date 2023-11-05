@@ -1,0 +1,4 @@
+FROM drakona/php:7.4-symfony
+
+RUN useradd -ms /bin/bash koch
+USER koch
