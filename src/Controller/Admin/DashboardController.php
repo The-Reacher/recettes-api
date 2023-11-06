@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Tag;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -15,7 +16,6 @@ class DashboardController extends AbstractDashboardController {
      * @Route("/admin", name="admin")
      */
     public function index(): Response {
-        //return parent::index();
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -29,6 +29,10 @@ class DashboardController extends AbstractDashboardController {
         return parent::configureCrud()
             ->renderContentMaximized()
             ->showEntityActionsInlined();
+    }
+
+    public function configureAssets(): Assets {
+        return Assets::new()->addCssFile('css/Dashboard/admin.css');
     }
 
     public function configureMenuItems(): iterable {
