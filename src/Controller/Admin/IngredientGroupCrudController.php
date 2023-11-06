@@ -2,30 +2,27 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Tag;
+use App\Entity\IngredientGroup;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class TagCrudController extends AbstractCrudController
+class IngredientGroupCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Tag::class;
+        return IngredientGroup::class;
     }
 
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
+            IdField::new('id'),
             TextField::new('name'),
-            TextField::new('slug'),
-            BooleanField::new('menu'),
-            TextEditorField::new('description'),
-            AssociationField::new('parent'),
+            NumberField::new('priority'),
+            AssociationField::new('recipeHasIngredients'),
         ];
     }
 }

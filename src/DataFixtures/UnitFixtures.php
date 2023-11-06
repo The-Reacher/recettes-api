@@ -23,9 +23,9 @@ class UnitFixtures extends AbstractFixtures
             'cuillère à café' => 'cuillères à café',
         ];
 
-        $unit = new Unit();
         foreach ($units as $singular => $plural) {
-            $unit->setSigular($singular)
+            $unit = new Unit();
+            $unit->setSingular($singular)
                 ->setPlural($plural);
             $manager->persist($unit);
         }
