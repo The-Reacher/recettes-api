@@ -25,10 +25,10 @@ CONSOLE=php bin/console
 # Manipulation des conteneurs #
 # =========================== #
 start: ## Démarrage des conteneurs et affiche les logs en temps réel
-	$(FIG) up
+	$(FIG) up -d
 
 start.daemon: ## Démarrage des conteneurs et rend la ligne de commande
-	$(FIG) up -d
+	$(FIG) up 
 
 stop: ## Arrête les conteneurs
 	$(FIG) down

@@ -22,7 +22,7 @@ class ImageCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            // ImageField::new('path')->setBasePath('images/*'),
+            ImageField::new('path'),
             NumberField::new('priority'),
             TextareaField::new('description'),
             AssociationField::new('recipe'),

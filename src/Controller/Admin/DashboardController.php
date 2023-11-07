@@ -33,16 +33,25 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
+            // permet de rendre la vue dhashboard sur toute la largeur
             ->renderContentMaximized()
+            // barre des menus à gauche
             ->renderSidebarMinimized()
+            // Titre du dashboard
             ->setTitle('Dashboard Recipes');
     }
 
     public function configureCrud(): Crud
     {
         return parent::configureCrud()
+            // body du dashboard sur toute la largeur
             ->renderContentMaximized()
-            ->showEntityActionsInlined();
+            // permet d'afficher les boutons (supp/modif) de chaque ligne au lieu d'afficher en dropdown
+            ->showEntityActionsInlined()
+            // afficher les lignes des tableaux par ordre descendant d'id
+            ->setDefaultSort([
+                'id' => 'DESC',
+            ]);
     }
 
     public function configureAssets(): Assets
@@ -52,14 +61,17 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Recipes', 'fas fa-book', Recipe::class);
+        // Liens vers les crud que j'ai crée pour chaque entité
         yield MenuItem::section('DATAS');
+
         yield MenuItem::linkToCrud('Tags', 'fas fa-tags', Tag::class);
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-shopping-basket', Ingredient::class);
         yield MenuItem::linkToCrud('Sources', 'fas fa-external-link-alt', Source::class);
         yield MenuItem::linkToCrud('Units', 'fas fa-weight-hanging', Unit::class);
+
         yield MenuItem::section('SUBDATAS');
+
         yield MenuItem::linkToCrud('Steps', 'fas fa-sort-numeric-up', Step::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Image::class);
         yield MenuItem::linkToCrud('Ingredient groups', 'fas fa-boxes', IngredientGroup::class);

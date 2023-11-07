@@ -18,7 +18,7 @@ class RecipeHasSourceCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->hideOnForm(),
             UrlField::new('url'),
             AssociationField::new('recipe'),
             AssociationField::new('source'),

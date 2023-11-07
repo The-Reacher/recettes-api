@@ -20,4 +20,3 @@ phpstan.neon
 
 #Images
 !public/images/.gitignore
-!/var/images

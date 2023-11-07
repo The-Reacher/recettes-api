@@ -315,8 +315,8 @@ class Recipe
         return $this;
     }
 
-    public function __toString(): ?string
+    public function __toString(): string
     {
-        return (string) $this->getName();
+        return $this->getName().' ('.$this->getId().')';
     }
 }
