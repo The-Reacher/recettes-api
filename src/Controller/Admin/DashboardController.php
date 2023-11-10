@@ -6,10 +6,7 @@ use App\Entity\Image;
 use App\Entity\Ingredient;
 use App\Entity\IngredientGroup;
 use App\Entity\Recipe;
-use App\Entity\RecipeHasIngredient;
-use App\Entity\RecipeHasSource;
 use App\Entity\Source;
-use App\Entity\Step;
 use App\Entity\Tag;
 use App\Entity\Unit;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
@@ -65,17 +62,14 @@ class DashboardController extends AbstractDashboardController
         // Liens vers les crud que j'ai crée pour chaque entité
         yield MenuItem::section('DATAS');
 
-        yield MenuItem::linkToCrud('Tags', 'fas fa-tags', Tag::class);
-        yield MenuItem::linkToCrud('Ingredients', 'fas fa-shopping-basket', Ingredient::class);
         yield MenuItem::linkToCrud('Sources', 'fas fa-external-link-alt', Source::class);
         yield MenuItem::linkToCrud('Units', 'fas fa-weight-hanging', Unit::class);
+        yield MenuItem::linkToCrud('Ingredients', 'fas fa-shopping-basket', Ingredient::class);
+        yield MenuItem::linkToCrud('Tags', 'fas fa-tags', Tag::class);
 
         yield MenuItem::section('SUBDATAS');
 
-        yield MenuItem::linkToCrud('Steps', 'fas fa-sort-numeric-up', Step::class);
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Image::class);
         yield MenuItem::linkToCrud('Ingredient groups', 'fas fa-boxes', IngredientGroup::class);
-        yield MenuItem::linkToCrud('Ingredient recipes', 'fas fa-boxes', RecipeHasIngredient::class);
-        yield MenuItem::linkToCrud('Sources recipes', 'fas fa-external-link-alt', RecipeHasSource::class);
     }
 }

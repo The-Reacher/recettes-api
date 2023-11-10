@@ -105,7 +105,7 @@ class Recipe
     /**
      * @var Collection<int, Tag>
      *
-     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="recipes")
+     * @ORM\ManyToMany(targetEntity=Tag::class, mappedBy="recipes", cascade={"persist", "remove"}, orphanRemoval=true)
      *
      * @Groups("get")
      */
