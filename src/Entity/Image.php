@@ -19,6 +19,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ApiResource(
  *      itemOperations={"get", "delete"})
+ *
+ * @Vich\Uploadable
  */
 class Image
 {
