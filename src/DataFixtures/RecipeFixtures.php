@@ -35,9 +35,9 @@ class RecipeFixtures extends AbstractFixtures implements DependentFixtureInterfa
             $recipe->setName($this->faker->name())
                 ->setDescription($this->faker->realText(500))
                 ->setDraft($this->faker->boolean(0.1))
-                ->setPreparation($this->faker->optional(0.01)->numberBetween(5, 120))
-                ->setCooking($this->faker->optional(0.05)->numberBetween(0, 120))
-                ->setBreak($this->faker->optional(0.01)->numberBetween(0, 600));
+                ->setPreparation($this->faker->optional(0.1)->numberBetween(5, 120))
+                ->setCooking($this->faker->optional(0.5)->numberBetween(0, 120))
+                ->setBreak($this->faker->optional(0.1)->numberBetween(0, 600));
 
             $recipeTags = $this->faker->randomElements($tags, $this->faker->randomNumber(2));
             foreach ($recipeTags as $recipeTag) {

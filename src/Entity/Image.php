@@ -19,6 +19,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ApiResource(
  *      itemOperations={"get", "delete"})
+ *
+ * @Vich\Uploadable
  */
 class Image
 {
@@ -120,5 +122,10 @@ class Image
         $this->step = $step;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return (string) $this->getPath();
     }
 }

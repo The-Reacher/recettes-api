@@ -36,7 +36,7 @@ class Source
     /**
      * @var Collection <int, RecipeHasSource>
      *
-     * @ORM\OneToMany(targetEntity=RecipeHasSource::class, mappedBy="source")
+     * @ORM\OneToMany(targetEntity=RecipeHasSource::class, mappedBy="source", orphanRemoval=true)
      */
     private Collection $recipeHasSources;
 
@@ -85,5 +85,10 @@ class Source
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName().' ('.$this->getId().')';
     }
 }

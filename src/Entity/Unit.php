@@ -25,7 +25,7 @@ class Unit
      *
      * @Groups("get")
      */
-    private string $sigular;
+    private string $singular;
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -46,14 +46,14 @@ class Unit
         $this->recipeHasIngredients = new ArrayCollection();
     }
 
-    public function getSigular(): ?string
+    public function getSingular(): ?string
     {
-        return $this->sigular;
+        return $this->singular;
     }
 
-    public function setSigular(string $sigular): self
+    public function setSingular(string $singular): self
     {
-        $this->sigular = $sigular;
+        $this->singular = $singular;
 
         return $this;
     }
@@ -98,5 +98,10 @@ class Unit
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getSingular().' / '.$this->getPlural();
     }
 }

@@ -70,4 +70,9 @@ class RecipeHasSource
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getRecipe().' - '.$this->getSource();
+    }
 }

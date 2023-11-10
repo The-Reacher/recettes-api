@@ -19,5 +19,8 @@ phpstan.neon
 ###< phpstan/phpstan ###
 
 #Images
+public/images/*
+# ajout de fichier gitignore à l'interieur de public/images pourque le dossier
+# soit versionné
 !public/images/.gitignore
-!/var/images
+!/var/images/
