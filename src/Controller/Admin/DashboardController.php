@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DashboardController extends AbstractDashboardController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/admin", name="admin_dashboard_index")
      */
     public function index(): Response
     {
@@ -71,5 +71,5 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Image::class);
         yield MenuItem::linkToCrud('Ingredient groups', 'fas fa-boxes', IngredientGroup::class);
-    }
+        }
 }
