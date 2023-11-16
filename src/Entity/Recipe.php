@@ -116,7 +116,7 @@ class Recipe
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
      */
-    private $user;
+    private ?User $user;
 
     public function __construct()
     {

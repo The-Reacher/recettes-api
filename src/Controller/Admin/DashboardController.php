@@ -73,5 +73,5 @@ class DashboardController extends AbstractDashboardController
 
         yield MenuItem::linkToCrud('Images', 'fas fa-images', Image::class);
         yield MenuItem::linkToCrud('Ingredient groups', 'fas fa-boxes', IngredientGroup::class);
-        }
+    }
 }

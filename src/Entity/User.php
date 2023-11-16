@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,12 +10,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * 
+ *
  * @ApiResource(
  *      itemOperations={"get" = {
  *
@@ -30,27 +31,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
      * @Groups("get")
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
+     *
      * @Groups("get")
+     *
+     * @var array <string>
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
+     * @Assert\Length(min = 4)
+     */
+    private ?string $plainPassword = null;
+
+    /**
+     * @var Collection<int, Recipe>
+     *
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     *
      * @Groups("get")
      */
-    private $recipes;
+    private Collection $recipes;
 
     public function __construct()
     {
@@ -104,6 +118,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param array<string> $roles
+     *
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -137,13 +156,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return null;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 
     /**

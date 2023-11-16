@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\RecipeHasSourceRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeHasSourceRepository::class)
+ *
  * @ApiResource(
  *      itemOperations={"get" ,"patch" ,"delete"},
  *      normalizationContext={"groups"={"get"}})
