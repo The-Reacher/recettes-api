@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      * @Groups("get")
      */
     private $recipes;

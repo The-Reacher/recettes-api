@@ -9,6 +9,7 @@ use App\Entity\Recipe;
 use App\Entity\Source;
 use App\Entity\Tag;
 use App\Entity\Unit;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -62,6 +63,7 @@ class DashboardController extends AbstractDashboardController
         // Liens vers les crud que j'ai crée pour chaque entité
         yield MenuItem::section('DATAS');
 
+        yield MenuItem::linkToCrud('Users', 'fas fa-users', User::class);
         yield MenuItem::linkToCrud('Sources', 'fas fa-external-link-alt', Source::class);
         yield MenuItem::linkToCrud('Units', 'fas fa-weight-hanging', Unit::class);
         yield MenuItem::linkToCrud('Ingredients', 'fas fa-shopping-basket', Ingredient::class);
