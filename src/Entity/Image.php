@@ -18,7 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get", "delete"})
+ *      itemOperations={"get", "delete"},
+ *      normalizationContext={"groups"={"get"}})
  *
  * @Vich\Uploadable
  */

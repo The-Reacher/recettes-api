@@ -14,7 +14,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=UnitRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get" ,"patch" ,"delete"})
+ *      itemOperations={"get" ,"patch" ,"delete"},
+ *      normalizationContext={"groups"={"get"}})
  */
 class Unit
 {

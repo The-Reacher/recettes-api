@@ -17,7 +17,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=IngredientRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get" ,"patch" ,"delete"})
+ *      itemOperations={"get" ,"patch" ,"delete"},
+ *      normalizationContext={"groups"={"get"}})
  */
 class Ingredient
 {

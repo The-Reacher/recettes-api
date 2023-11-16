@@ -17,13 +17,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  *
  * @ApiResource(
+ *      normalizationContext={"groups"={"get"}},
  *      itemOperations={"get" = {
  *
  *                          "normalization_context"={"groups"={"get","Recipe:item:get"}}
  *
  *                              },
  *                      "patch",
- *                      "delete"})
+ *                      "delete"},
+ *      normalizationContext={"groups"={"get"}})
  */
 class Recipe
 {
@@ -110,6 +112,11 @@ class Recipe
      * @Groups("get")
      */
     private Collection $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="recipes")
+     */
+    private $user;
 
     public function __construct()
     {
@@ -318,5 +325,17 @@ class Recipe
     public function __toString(): string
     {
         return $this->getName().' ('.$this->getId().')';
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 }
