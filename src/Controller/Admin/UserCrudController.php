@@ -29,7 +29,7 @@ class UserCrudController extends AbstractCrudController
             AssociationField::new('recipes')->setFormTypeOptions([
                 'by_reference' => false,
             ]),
-            TextField::new('password'),
+            TextField::new('plainPassword')->onlyOnForms()->setLabel('Password'),
         ];
     }
 }
