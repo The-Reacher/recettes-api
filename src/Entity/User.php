@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -25,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *                      "patch"},
  *      normalizationContext={"groups"={"get"}})
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     use HasIdTrait;
 
@@ -77,9 +78,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->recipes = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -211,5 +219,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @param array<string> $payload
+     */
+    public static function createFromPayload($username, array $payload): self
+    {
+        return (new self())
+            ->setId((int) $username)
+            ->setRoles((array) $payload['roles'])
+            ->setEmail($payload['email']);
     }
 }

@@ -4,8 +4,13 @@ api_platform:
     patch_formats:
         json: ['application/merge-patch+json']
     swagger:
-        versions: [3]
-    
+        versions: [3]    
+    title: 'API Recettes'
+    description: 'De belles recettes délicieuses !'
+    version: '0.0.1'
     show_webby: false
-
-    metadata_backward_compatibility_layer: false
+    openapi:
+        contact:
+            name: Drakolab
+            url: https://www.github.com/Drakolab-yt
+            email: remi@drakona.fr

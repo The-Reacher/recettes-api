@@ -78,4 +78,12 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
+
+    /**
+     * @Route("/api/login", name="security_api_login")
+     */
+    public function apiLogin(): Response
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the longin key on your firewall.');
+    }
 }
