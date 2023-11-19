@@ -18,7 +18,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=ImageRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get", "delete"})
+ *      collectionOperations={"get"},
+ *
+ *      itemOperations={"get",
+ *                      "delete" = {"security"="is_granted('ROLE_ADMIN') or (object.isUserAllowedToEdit(user))"},
+ *                      "put" = {"security"="is_granted('ROLE_ADMIN') or (object.isUserAllowedToEdit(user)) "}
+ *                     },
+ *      normalizationContext={"groups"={"get"}})
  *
  * @Vich\Uploadable
  */
@@ -48,7 +54,7 @@ class Image
      *
      * @Groups("get")
      */
-    private int $size;
+    private ?int $size;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recipe::class, inversedBy="images")
@@ -81,7 +87,7 @@ class Image
         return $this->path;
     }
 
-    public function setPath(string $path): self
+    public function setPath(?string $path): self
     {
         $this->path = $path;
 
@@ -93,7 +99,7 @@ class Image
         return $this->size;
     }
 
-    public function setSize(int $size): self
+    public function setSize(?int $size): self
     {
         $this->size = $size;
 
@@ -122,6 +128,22 @@ class Image
         $this->step = $step;
 
         return $this;
+    }
+
+    public function isUserAllowedToEdit(User $user): bool
+    {
+        $recipe = $this->getRecipe();
+        $step = $this->getStep();
+
+        if ($recipe && $recipe->getUser() && $recipe->getUser()->getId() === $user->getId()) {
+            return true;
+        }
+
+        if ($step && $step->getRecipe() && $step->getRecipe()->getUser() && $step->getRecipe()->getUser()->getId() === $user->getId()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function __toString(): string

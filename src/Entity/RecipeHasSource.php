@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Entity\Traits\HasIdTrait;
 use App\Repository\RecipeHasSourceRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=RecipeHasSourceRepository::class)
+ *
+ * @ApiResource(
+ *      collectionOperations={"get"},
+ *
+ *      itemOperations={"get",
+ *                      "patch" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"},
+ *                      "delete" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"},
+ *                      "put" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"}
+ *                      },
+ *      normalizationContext={"groups"={"get"}})
  */
 class RecipeHasSource
 {

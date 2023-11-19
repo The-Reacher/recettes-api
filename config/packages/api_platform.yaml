@@ -5,7 +5,19 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
-    
+        #declrer la connexion dans l'interface swagger avec le token jwt
+        #ajoute le type de connexion jwt dans api_platform "Authorize"
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header    
+    title: 'API Recettes'
+    description: 'De belles recettes délicieuses !'
+    version: '0.0.1'
     show_webby: false
-
+    openapi:
+        contact:
+            name: Drakolab
+            url: https://www.github.com/Drakolab-yt
+            email: remi@drakona.fr
     metadata_backward_compatibility_layer: false
