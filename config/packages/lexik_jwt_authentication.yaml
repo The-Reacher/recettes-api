@@ -5,5 +5,7 @@ lexik_jwt_authentication:
     token_ttl: 3600
     user_identity_field: id
 
+#indiquer à jwt qu'il a un lien avec api_platform et qu'il doit s'en servir
+##Afficher la rubrique Login Check dans api_platform interface
     api_platform:
         check_path: /api/login

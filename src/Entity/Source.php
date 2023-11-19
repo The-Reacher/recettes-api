@@ -17,7 +17,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=SourceRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get" ,"patch" ,"delete"},
+ *      collectionOperations={"get"},
+ *
+ *      itemOperations={"get",
+ *                      "patch" = {"security"="is_granted('ROLE_USER')"},
+ *                      "delete"= {"security"="is_granted('ROLE_USER')"},
+ *                      "put" = {"security"="is_granted('ROLE_USER')"}
+ *                      },
  *      normalizationContext={"groups"={"get"}})
  */
 class Source

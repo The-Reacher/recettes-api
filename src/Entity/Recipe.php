@@ -17,14 +17,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=RecipeRepository::class)
  *
  * @ApiResource(
+ *      collectionOperations={"get"},
+ *
  *      normalizationContext={"groups"={"get"}},
  *      itemOperations={"get" = {
- *
- *                          "normalization_context"={"groups"={"get","Recipe:item:get"}}
- *
+ *                                "normalization_context"={"groups"={"get","Recipe:item:get"}}
  *                              },
- *                      "patch",
- *                      "delete"},
+ *                      "patch" = {"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"},
+ *                      "delete" = {"security"="is_granted('ROLE_ADMIN') or object.getUser() == user"},
+ *                      "put" = {"security"="is_granted('ROLE_USER')"}
+ *                      },
  *      normalizationContext={"groups"={"get"}})
  */
 class Recipe
@@ -80,7 +82,7 @@ class Recipe
     /**
      * @var Collection<int, Image>
      *
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="recipe", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="recipe", cascade={"persist", "remove"}, orphanRemoval=true)
      *
      * @Groups("get")
      */

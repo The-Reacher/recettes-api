@@ -16,7 +16,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=StepRepository::class)
  *
  * @ApiResource(
- *      itemOperations={"get" ,"patch" ,"delete"},
+ *      collectionOperations={"get"},
+ *
+ *      itemOperations={"get",
+ *                      "patch" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"},
+ *                      "delete" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"},
+ *                      "put" = {"security"="is_granted('ROLE_ADMIN') or object.getRecipe().getUser() == user"}
+ *                      },
  *      normalizationContext={"groups"={"get"}})
  */
 class Step
